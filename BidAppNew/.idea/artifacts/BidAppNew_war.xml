@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="BidAppNew:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="BidAppNew-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="BidAppNew:war exploded" />
+    </root>
+  </artifact>
+</component>
