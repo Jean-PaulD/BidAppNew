@@ -19,5 +19,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole("USER").and().csrf().disable().headers().frameOptions().disable();
     }
     //test
+    //a change
 
 }
