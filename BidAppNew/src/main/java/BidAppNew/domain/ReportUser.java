@@ -10,15 +10,15 @@ public class ReportUser implements Serializable {
     private int numberOfReports;
 
     private Item item;
-    private User user;
+//    private User user;
 
-    public Item getItem() {
-        return item;
-    }
-
-    public User getUser() {
-        return user;
-    }
+//    public Item getItem() {
+//        return item;
+//    }
+//
+//    public User getUser() {
+//        return user;
+//    }
 
     private ReportUser(){}
 
@@ -27,8 +27,8 @@ public class ReportUser implements Serializable {
         this.username = builder.username;
         this.username = builder.username;
         this.numberOfReports = builder.numberOfReports;
-        this.item = builder.item;
-        this.user = builder.user;
+//        this.item = builder.item;
+//        this.user = builder.user;
     }
 
     public String getId() {
@@ -50,17 +50,17 @@ public class ReportUser implements Serializable {
         private int numberOfReports;
 
         private Item item;
-        private User user;
+//        private User user;
 
         public Builder item(Item value){
             this.item = value;
             return this;
         }
 
-        public Builder user(User value){
-            this.user = value;
-            return this;
-        }
+//        public Builder user(User value){
+//            this.user = value;
+//            return this;
+//        }
 
 
         public Builder id(String value){

@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //@GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
     private String username;
     private String firstname;
@@ -19,11 +19,11 @@ public class User implements Serializable {
     private String userType;
     private int reportCounter;
 
-    private Item item;
-    private CommentBid commentBid;
-    private Bid bid;
-    private UserRating userRating;
-    private ReportUser reportUser;
+//    private Item item;
+//    private CommentBid commentBid;
+//    private Bid bid;
+//    private UserRating userRating;
+//    private ReportUser reportUser;
 
 
     public static class Builder{
@@ -36,11 +36,11 @@ public class User implements Serializable {
         private String userType;
         private int reportCounter;
 
-        private Item item;
-        private CommentBid commentBid;
-        private Bid bid;
-        private UserRating userRating;
-        private ReportUser reportUser;
+//        private Item item;
+//        private CommentBid commentBid;
+//        private Bid bid;
+//        private UserRating userRating;
+//        private ReportUser reportUser;
 
         public Builder id(String value){
             this.id = value;
@@ -77,25 +77,25 @@ public class User implements Serializable {
             return this;
         }
 
-        public Builder item(Item value){
-            this.item = value;
-            return this;
-        }
-
-        public Builder bid(Bid  value){
-            this.bid = value;
-            return this;
-        }
-
-        public Builder userRating(UserRating  value){
-            this.userRating = value;
-            return this;
-        }
-
-        public Builder reportUser(ReportUser  value){
-            this.reportUser = value;
-            return this;
-        }
+//        public Builder item(Item value){
+//            this.item = value;
+//            return this;
+//        }
+//
+//        public Builder bid(Bid  value){
+//            this.bid = value;
+//            return this;
+//        }
+//
+//        public Builder userRating(UserRating  value){
+//            this.userRating = value;
+//            return this;
+//        }
+//
+//        public Builder reportUser(ReportUser  value){
+//            this.reportUser = value;
+//            return this;
+//        }
 
         public User build(){
             return new User(this);
@@ -112,11 +112,11 @@ public class User implements Serializable {
         this.password = builder.password;
         this.userType = builder.userType;
         this.reportCounter = builder.reportCounter;
-        this.item = builder.item;
-        this.commentBid = builder.commentBid;
-        this.bid = builder.bid;
-        this.userRating = builder.userRating;
-        this.reportUser = builder.reportUser;
+//        this.item = builder.item;
+//        this.commentBid = builder.commentBid;
+//        this.bid = builder.bid;
+//        this.userRating = builder.userRating;
+//        this.reportUser = builder.reportUser;
     }
 
 
@@ -148,26 +148,54 @@ public class User implements Serializable {
         return reportCounter;
     }
 
-    public Item getItem() {
-        return item;
+//    public Item getItem() {
+//        return item;
+//    }
+//
+//    public CommentBid getCommentBid() {
+//        return commentBid;
+//    }
+//
+//    public Bid getBid() {
+//        return bid;
+//    }
+//
+//    public UserRating getUserRating() {
+//        return userRating;
+//    }
+//
+//    public ReportUser getReportUser() {
+//        return reportUser;
+//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id.equals(user.id);
     }
 
-    public CommentBid getCommentBid() {
-        return commentBid;
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 
-    public Bid getBid() {
-        return bid;
+    @Override
+    public String toString() {
+
+
+
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", userType='" + userType + '\'' +
+                ", reportCounter=" + reportCounter +
+                '}';
     }
-
-    public UserRating getUserRating() {
-        return userRating;
-    }
-
-    public ReportUser getReportUser() {
-        return reportUser;
-    }
-
-
-
 }

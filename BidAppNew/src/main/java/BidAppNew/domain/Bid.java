@@ -1,32 +1,30 @@
 package BidAppNew.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
+//@Entity
 public class Bid implements Serializable {
 
-
+    //@Id
+    //@GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
     private String username;
     private String itemID;
     private Date bidTimer;
-    //relationship
-    @OneToMany
-    @JoinColumn(name = "User_id")
-    private User user;
+//    //relationship
+//    @OneToMany
+//    @JoinColumn(name = "User_id")
+//    private User user;
 
-    @OneToOne
-    @JoinColumn(name = "Item_id")
+//    @OneToOne
+//    @JoinColumn(name = "Item_id")
     private Item item;
 
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 
     public Item getItem() {
         return item;
@@ -39,7 +37,7 @@ public class Bid implements Serializable {
         this.username = builder.username;
         this.itemID = builder.itemID;
         this.bidTimer = builder.bidTimer;
-        this.user = builder.user;
+//        this.user = builder.user;
         this.item = builder.item;
     }
 
@@ -50,13 +48,13 @@ public class Bid implements Serializable {
         private String username;
         private String itemID;
         private Date bidTimer;
-        private User user;
+//        private User user;
         private Item item;
-
-        public Builder user(User value){
-            this.user = value;
-            return this;
-        }
+//
+//        public Builder user(User value){
+//            this.user = value;
+//            return this;
+//        }
 
         public Builder item(Item value){
             this.item = value;

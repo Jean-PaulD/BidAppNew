@@ -10,15 +10,15 @@ public class CommentBid implements Serializable {
     private String comment;
     //relationship.
     private Item item;
-    private User user;
+//    private User user;
 
     public Item getItem() {
         return item;
     }
 
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 
     private CommentBid(){}
 
@@ -28,7 +28,7 @@ public class CommentBid implements Serializable {
         this.username = builder.username;
         this.comment = builder.comment;
         this.item = builder.item;
-        this.user = builder.user;
+//        this.user = builder.user;
     }
 
     public static class Builder{
@@ -39,12 +39,12 @@ public class CommentBid implements Serializable {
         private String username;
         private String comment;
         private Item item;
-        private User user;
+//        private User user;
 
-        public Builder user(User value){
-            this.user = value;
-            return this;
-        }
+//        public Builder user(User value){
+//            this.user = value;
+//            return this;
+//        }
 
         public Builder item(Item value){
             this.item = value;

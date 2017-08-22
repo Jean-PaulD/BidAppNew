@@ -8,7 +8,7 @@ public class UserRating implements Serializable {
     private String id;
     private String username;
     private int rating;
-    private User user;
+ //   private User user;
 
 
 
@@ -18,7 +18,7 @@ public class UserRating implements Serializable {
         this.id = builder.id;
         this.username = builder.username;
         this.rating = builder.rating;
-        this.user = builder.user;
+    //    this.user = builder.user;
     }
 
     public String getId() {
@@ -32,17 +32,17 @@ public class UserRating implements Serializable {
     public int getRating() {
         return rating;
     }
-
-    public User getUser() {
-        return user;
-    }
+//
+//    public User getUser() {
+//        return user;
+//    }
 
     public static class Builder{
 
         private String id;
         private String username;
         private int rating;
-        private User user;
+//        private User user;
 
         public Builder id(String value){
             this.id = value;
@@ -59,10 +59,10 @@ public class UserRating implements Serializable {
             return this;
         }
 
-        public Builder user(User value){
-            this.user = value;
-            return this;
-        }
+//        public Builder user(User value){
+//            this.user = value;
+//            return this;
+//        }
 
         public UserRating build(){
             return new UserRating(this);
