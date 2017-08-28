@@ -1,10 +1,14 @@
 package BidAppNew.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
+@Entity
 public class Item implements Serializable {
 
+    @Id
     private String id;
     private String username;
     private String description;
@@ -13,11 +17,12 @@ public class Item implements Serializable {
     private String currentBidOwner;
     private String comment;
 
-//    private User user;
+    @ManyToOne
+    private User user;
 
-//    public User getUser() {
-//        return user;
-//    }
+    public User getUser() {
+        return user;
+    }
 
     private Item(){}
 
@@ -29,7 +34,7 @@ public class Item implements Serializable {
         this.itemValue = builder.itemValue;
         this.currentBidOwner = builder.currentBidOwner;
         this.comment = builder.comment;
-//        this.user = builder.user;
+        this.user = builder.user;
 
     }
 
@@ -43,12 +48,12 @@ public class Item implements Serializable {
         private double itemValue;
         private String currentBidOwner;
         private String comment;
-//        private User user;
+        private User user;
 
-//        public Builder user(User value){
-//            this.user = value;
-//            return this;
-//        }
+        public Builder user(User value){
+            this.user = value;
+            return this;
+        }
 
         public Builder id(String value){
             this.id = value;

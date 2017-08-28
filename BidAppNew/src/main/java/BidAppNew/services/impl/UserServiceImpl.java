@@ -3,6 +3,7 @@ package BidAppNew.services.impl;
 import BidAppNew.domain.User;
 import BidAppNew.repositories.UserRepository;
 import BidAppNew.services.UserService;
+import com.sun.javafx.collections.ArrayListenerHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -17,22 +18,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-    private UserService userService;
-//    @Autowired
-//    private EntityManager entityManager;
 
-//    //@Override
-//    public User  findbyUserName1(String u){
-//
-//
-//        List<User> findByUserName = userService.findByUserName(u);
-//
-//    //        (findByUserName).extracting(Customer::getLastName).containsOnly(customer.getLastName())
-//
-//        //findByUserName.lastIndexOf()
-//
-//        return findByUserName.get(0);
-//    }
+    public List<User> getAllUsers(){
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+        return users;
+    }
 
     @Override
     public User save(User entity) {
@@ -45,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(String id) {
-        return null;
+    public User update(String id, User entity) {
+        return userRepository.save(entity);
     }
 }
