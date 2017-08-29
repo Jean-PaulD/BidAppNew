@@ -15,7 +15,7 @@ public class ReportUser implements Serializable {
     private int numberOfReports;
 
 //    private Item item;
-    @ManyToMany
+    @ManyToOne
     private User user;
 //
 //    public Item getItem() {

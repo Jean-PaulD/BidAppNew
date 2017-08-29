@@ -10,17 +10,17 @@ public class CommentBid implements Serializable {
 
     @Id
     private String id;
-    private String itemId;
+    //private String StringId;
     private String username;
     private String comment;
     //relationship.
+    //@ManyToOne
+    private String String;
     @ManyToOne
-    private Item item;
-    @ManyToOne
-   private User user;
+    private User user;
 
-    public Item getItem() {
-        return item;
+    public String getString() {
+        return String;
     }
 
     public User getUser() {
@@ -31,10 +31,10 @@ public class CommentBid implements Serializable {
 
     public CommentBid(Builder builder) {
         this.id = builder.id;
-        this.itemId = builder.itemId;
+       // this.StringId = builder.StringId;
         this.username = builder.username;
         this.comment = builder.comment;
-        this.item = builder.item;
+        this.String = builder.String;
         this.user = builder.user;
     }
 
@@ -43,10 +43,10 @@ public class CommentBid implements Serializable {
 
 
         private String id;
-        private String itemId;
+        private String StringId;
         private String username;
         private String comment;
-        private Item item;
+        private String String;
         private User user;
 
         public Builder user(User value){
@@ -54,8 +54,8 @@ public class CommentBid implements Serializable {
             return this;
         }
 
-        public Builder item(Item value){
-            this.item = value;
+        public Builder String(String value){
+            this.String = value;
             return this;
         }
 
@@ -64,8 +64,8 @@ public class CommentBid implements Serializable {
             return this;
         }
 
-        public Builder itemId(String value){
-            this.itemId = value;
+        public Builder StringId(String value){
+            this.StringId = value;
             return this;
         }
 
@@ -90,9 +90,9 @@ public class CommentBid implements Serializable {
         return id;
     }
 
-    public String getItemId() {
-        return itemId;
-    }
+//    public String getStringId() {
+//        return StringId;
+//    }
 
     public String getUsername() {
         return username;

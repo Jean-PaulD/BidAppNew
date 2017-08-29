@@ -3,7 +3,9 @@ package BidAppNew.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Item implements Serializable {
@@ -14,14 +16,22 @@ public class Item implements Serializable {
     private String description;
     private String itemName;
     private double itemValue;
-    private String currentBidOwner;
-    private String comment;
+    private double bidAmount;
+
+    @OneToMany
+    private List<CommentBid> comment;
+    @ManyToOne
+    private User currentBidOwner;
 
     @ManyToOne
-    private User user;
+    private User poster;
+
+    public double getBidAmount() {
+        return bidAmount;
+    }
 
     public User getUser() {
-        return user;
+        return poster;
     }
 
     private Item(){}
@@ -34,7 +44,8 @@ public class Item implements Serializable {
         this.itemValue = builder.itemValue;
         this.currentBidOwner = builder.currentBidOwner;
         this.comment = builder.comment;
-        this.user = builder.user;
+        this.poster = builder.poster;
+        this.bidAmount = builder.bidAmount;
 
     }
 
@@ -46,12 +57,18 @@ public class Item implements Serializable {
         private String description;
         private String itemName;
         private double itemValue;
-        private String currentBidOwner;
-        private String comment;
-        private User user;
+        private User currentBidOwner;
+        private List<CommentBid> comment;
+        private User poster;
+        private double bidAmount;
 
-        public Builder user(User value){
-            this.user = value;
+        public Builder bidAmount(double value){
+            this.bidAmount = value;
+            return this;
+        }
+
+        public Builder poster(User value){
+            this.poster = value;
             return this;
         }
 
@@ -80,12 +97,12 @@ public class Item implements Serializable {
             return this;
         }
 
-        public Builder currentBidOwner(String value){
+        public Builder currentBidOwner(User value){
             this.currentBidOwner = value;
             return this;
         }
 
-        public Builder comment(String value){
+        public Builder comment(List<CommentBid> value){
             this.comment = value;
             return this;
         }
@@ -118,11 +135,11 @@ public class Item implements Serializable {
         return itemValue;
     }
 
-    public String getCurrentBidOwner() {
+    public User getCurrentBidOwner() {
         return currentBidOwner;
     }
 
-    public String getComment() {
+    public List<CommentBid> getComment() {
         return comment;
     }
 

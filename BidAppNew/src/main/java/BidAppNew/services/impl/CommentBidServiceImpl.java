@@ -16,11 +16,11 @@ public class CommentBidServiceImpl implements CommentBidService {
     private CommentBidRepository commentBidRepository;
 
 
-    public List<CommentBid> getAllCommentsForItem(String id){
-        List<CommentBid> comments = new ArrayList<>();
-        //commentBidRepository.findBy
-        commentBidRepository.findAll().forEach(comments::add);
-        return comments;
-    }
+//    public List<CommentBid> getAllCommentsForItem(String id){
+//        List<CommentBid> comments = new ArrayList<>();
+//        //commentBidRepository.findBy
+//        commentBidRepository.findAll().forEach(comments::add);
+//        return comments;
+//    }
 
 }

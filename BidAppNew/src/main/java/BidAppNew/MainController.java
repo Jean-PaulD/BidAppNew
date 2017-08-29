@@ -1,5 +1,6 @@
 package BidAppNew;
 
+import BidAppNew.domain.Item;
 import BidAppNew.domain.User;
 import BidAppNew.factories.UserFactory;
 import BidAppNew.repositories.UserRepository;
@@ -24,6 +25,7 @@ public class MainController {
     private UserRepository userRepository;
     private UserServiceImpl userServiceImpl;
 
+
     @GetMapping(path="/add") // Map ONLY GET Requests
     public @ResponseBody
     String addNewUser (@RequestParam String userName, @RequestParam String firstName, @RequestParam String lastname,
@@ -39,14 +41,14 @@ public class MainController {
         User user2 = UserFactory.getUser("Username1", "Jean", "Paul", "1234",
                 4, "admin");
 
-//        localhost:8080/demo/add?userName=Jeff1&firstName=Jeff1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
-//        localhost:8080/demo/add?userName=Jeff2&firstName=Jeff2&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
-//        localhost:8080/demo/add?userName=Jeff3&firstName=Jeff3&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
-//        localhost:8080/demo/add?userName=Jeff4&firstName=Jeff4&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
-//        localhost:8080/demo/add?userName=JP1&firstName=Jean1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
-//        localhost:8080/demo/add?userName=JP2&firstName=Jean2&lastname=Paul2&password=1234&reportCounter=3&userType=admin2
-//        localhost:8080/demo/add?userName=JP3&firstName=Jean3&lastname=Paul3&password=1234&reportCounter=3&userType=admin3
-//        localhost:8080/demo/add?userName=JP4&firstName=Jean4&lastname=Paul4&password=1234&reportCounter=3&userType=admin4
+//        localhost:8080/demo/add?userName=John&firstName=John1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+//        localhost:8080/demo/add?userName=Abraham&firstName=Abraham1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+//        localhost:8080/demo/add?userName=lincoln&firstName=lincoln1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+//        localhost:8080/demo/add?userName=Leon&firstName=Leon1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+//        localhost:8080/demo/add?userName=Justin&firstName=Justin1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+//        localhost:8080/demo/add?userName=Lorenzo&firstName=Lorenzo1&lastname=Paul2&password=1234&reportCounter=3&userType=admin2
+//        localhost:8080/demo/add?userName=banna&firstName=banna1&lastname=Paul3&password=1234&reportCounter=3&userType=admin3
+//        localhost:8080/demo/add?userName=Brian&firstName=Brian1&lastname=Paul4&password=1234&reportCounter=3&userType=admin4
 
         userRepository.save(user);
         return "Saved";
@@ -61,10 +63,14 @@ public class MainController {
         //return userServiceImpl.findbyUserName("username99");
     }
 
-
+    //get all items
+//    @GetMapping(path="/allItems")
+//    public @ResponseBody Iterable<Item> getAllItems(){
+//        return
+//    }
 
     @GetMapping(path="/username")
-    public @ResponseBody String getUserName() {
+    public @ResponseBody Iterable<User> getUserName() {
         // This returns a JSON or XML with the users
 
         //return userRepository.findAll();
@@ -73,7 +79,7 @@ public class MainController {
         List<User> findUserName = userRepository.findByusername("JP1");//serName("JP1");
         //Users findByLastName1 = userRepository.findByUserName("JP1");
 
-        return findUserName.toString();
+        return findUserName; //.toString();
 
     }
 
