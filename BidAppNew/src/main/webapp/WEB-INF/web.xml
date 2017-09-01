@@ -6,29 +6,40 @@
 
 	<display-name>BidAppNew</display-name>
 
-	 <!--  
-	      There are three means to configure Wickets configuration mode and they are
-	      tested in the order given. 
-	      1) A system property: -Dwicket.configuration
-	      2) servlet specific <init-param>
-	      3) context specific <context-param>
-	      The value might be either "development" (reloading when templates change)
-	      or "deployment". If no configuration is found, "development" is the default.
-	-->
 
-	<filter>
-		<filter-name>wicket.BidAppNew</filter-name>
- 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
-		<init-param>
-			<param-name>applicationClassName</param-name>
-			<param-value>BidAppNew.WicketApplication</param-value>
- 		</init-param>
- 	</filter>
 
- <filter-mapping>
-  <filter-name>wicket.BidAppNew</filter-name>
-	<url-pattern>/*</url-pattern>
- </filter-mapping>
+
+        <!--<servlet>-->
+            <!--<servlet-name>Jersey Web Application</servlet-name>-->
+            <!--<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>-->
+
+            <!--<load-on-startup>1</load-on-startup>-->
+        <!--</servlet>-->
+
+
+              <!--There are three means to configure Wickets configuration mode and they are-->
+              <!--tested in the order given.-->
+              <!--1) A system property: -Dwicket.configuration-->
+              <!--2) servlet specific <init-param>-->
+              <!--3) context specific <context-param>-->
+              <!--The value might be either "development" (reloading when templates change)-->
+              <!--or "deployment". If no configuration is found, "development" is the default.-->
+
+
+
+        <filter>
+            <filter-name>wicket.BidAppNew</filter-name>
+             <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+            <init-param>
+                <param-name>applicationClassName</param-name>
+                <param-value>BidAppNew.WicketApplication</param-value>
+             </init-param>
+         </filter>
+
+     <filter-mapping>
+      <filter-name>wicket.BidAppNew</filter-name>
+        <url-pattern>/*</url-pattern>
+     </filter-mapping>
 
 
 </web-app>

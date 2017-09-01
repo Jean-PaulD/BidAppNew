@@ -60,7 +60,7 @@ public class ItemController {
         return "item saved";
     }
 
-
+    //check all comments under a certain item
 
 
     @GetMapping(path="/allItems")
