@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/demo")
@@ -61,13 +64,55 @@ public class ItemController {
     }
 
     //check all comments under a certain item
+    //get all items and their details
+    @GetMapping(path="/allItemDetails")
+    public @ResponseBody List<String> getAllItemDetails() {
 
+        List<Item> itemDetails = new ArrayList<>();
+        List<Item> oneItem = itemRepository.findItemsByItemName("d");
 
-    @GetMapping(path="/allItems")
-    public @ResponseBody Iterable<Item> getAllUsers() {
-        return itemRepository.findAll();
+        Item oneItem1;
+
+        List<String> itemList = new ArrayList<>();
+
+        Map<String,String> values = new HashMap<String, String>();
+
+        itemList.add(values.toString());
+
+        for(int i = oneItem.size(); i > 0; i--){
+            oneItem1 = oneItem.get(i);
+            values.put("id"+i, "Item ID: "+oneItem1.getid());
+            values.put("price"+i, " Item Value: R" + oneItem1.getItemValue());
+            values.put("description"+i, " Item Description: "+oneItem1.getDescription());
+            values.put("highestBidder"+i, " Original Poster: "+oneItem1.getUser().getUsername());
+            values.put("new line"+i, "---------------");
+            itemList.add(values.get("id"+i));
+            itemList.add(values.get("price"+i));
+            itemList.add(values.get("description"+i));
+            itemList.add(values.get("highestBidder"+i));
+            itemList.add(values.get("new line"+i));
+
+        }
+
+        return itemList;
+//        itemRepository.findAll()
+//                .forEach(itemDetails::add);
+
+//        return itemDetails;
+        //return itemRepository.findAll();
     }
 
 
+    @GetMapping(path="/allItems")
+    public @ResponseBody Iterable<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
+
+    //finditem by name
+    @GetMapping(path="/Item")
+    public @ResponseBody Iterable<Item> getOneItem(@RequestParam String OP) {
+        //return new Gson().toJson(itemRepository);
+        return itemRepository.findItemsByItemName(OP);
+    }
 
 }

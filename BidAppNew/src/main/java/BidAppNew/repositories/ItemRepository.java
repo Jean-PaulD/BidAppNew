@@ -11,4 +11,5 @@ public interface ItemRepository extends CrudRepository<Item, String>
 
    public List<Item> findItemByusername(String username);
    public List<Item> findById(String id);
+   public List<Item> findItemsByItemName(String name);
 }

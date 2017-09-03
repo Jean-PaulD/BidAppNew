@@ -26,7 +26,8 @@ public class Item implements Serializable {
     @ManyToOne
     private User poster;
 
-    public double getBidAmount() {
+    public double
+    getBidAmount() {
         return bidAmount;
     }
 
