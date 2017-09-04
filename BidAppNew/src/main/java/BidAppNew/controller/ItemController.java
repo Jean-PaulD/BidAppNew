@@ -69,37 +69,43 @@ public class ItemController {
     public @ResponseBody List<String> getAllItemDetails() {
 
         List<Item> itemDetails = new ArrayList<>();
-        List<Item> oneItem = itemRepository.findItemsByItemName("d");
 
-        Item oneItem1;
+        List<Item> itemList = new ArrayList<>();
 
-        List<String> itemList = new ArrayList<>();
+        itemRepository.findAll().forEach(itemList::add);
 
-        Map<String,String> values = new HashMap<String, String>();
+        List<String> stringListOfItems = new ArrayList<>();
 
-        itemList.add(values.toString());
 
-        for(int i = oneItem.size(); i > 0; i--){
-            oneItem1 = oneItem.get(i);
-            values.put("id"+i, "Item ID: "+oneItem1.getid());
-            values.put("price"+i, " Item Value: R" + oneItem1.getItemValue());
-            values.put("description"+i, " Item Description: "+oneItem1.getDescription());
-            values.put("highestBidder"+i, " Original Poster: "+oneItem1.getUser().getUsername());
-            values.put("new line"+i, "---------------");
-            itemList.add(values.get("id"+i));
-            itemList.add(values.get("price"+i));
-            itemList.add(values.get("description"+i));
-            itemList.add(values.get("highestBidder"+i));
-            itemList.add(values.get("new line"+i));
+        for(int i = itemList.size()-1; i >= 0; i--){
+//            Item tempItem = new Item.Builder()
+//                    .id(itemList.get(i).getid())
+//                    .username(itemList.get(i).getUser().getUsername())
+//                    .itemName(itemList.get(i).getItemName())
+//                    .description(itemList.get(i).getDescription())
+//                    .itemValue(itemList.get(i).getItemValue())
+//                    .bidAmount(itemList.get(i).getBidAmount())
+//                    .bidOwnerName(itemList.get(i).getCurrentBidOwner().getUsername())
+//                    .comment(itemList.get(i).getComment())
+//                    .build();
 
+                    String tempHolder = "---------- Item{" +
+                    "id='" + itemList.get(i).getid() + '\'' +
+                    ", username='" + itemList.get(i).getUser().getUsername() + '\'' +
+                    ", description='" + itemList.get(i).getDescription() + '\'' +
+                    ", item Name='" + itemList.get(i).getItemName() + '\'' +
+                    ", item Value=" + itemList.get(i).getItemValue() +
+                    ", bid Amount=" + itemList.get(i).getBidAmount() +
+                    ", comment=" + itemList.get(i).getComment() +
+                    ", Highest Bidder=" + itemList.get(i).getCurrentBidOwner().getUsername() +
+                    " " +
+                    '}';
+
+
+                    stringListOfItems.add(tempHolder);
         }
 
-        return itemList;
-//        itemRepository.findAll()
-//                .forEach(itemDetails::add);
-
-//        return itemDetails;
-        //return itemRepository.findAll();
+        return stringListOfItems;
     }
 
 
@@ -109,10 +115,68 @@ public class ItemController {
     }
 
     //finditem by name
-    @GetMapping(path="/Item")
-    public @ResponseBody Iterable<Item> getOneItem(@RequestParam String OP) {
+    @GetMapping(path="/getSingleItem")
+    public @ResponseBody Iterable<Item> getOneItem(@RequestParam String id) {
+        //return new Gson().toJson(itemRepository);
+
+        List<Item> item = new ArrayList<>();
+
+        itemRepository.findById(id).forEach(item::add);
+
+        String tempHolder = "---------- Item{" +
+                "id='" + item.get(0).getid() + '\'' +
+                ", Poster='" + item.get(0).getUser().getUsername() + '\'' +
+                ", description='" + item.get(0).getDescription() + '\'' +
+                ", item Name='" + item.get(0).getItemName() + '\'' +
+                ", item Value=" + item.get(0).getItemValue() +
+                ", bid Amount=" + item.get(0).getBidAmount() +
+                ", comment=" + item.get(0).getComment() +
+                ", Highest Bidder=" + item.get(0).getCurrentBidOwner().getUsername() +
+                " " +
+                '}';
+
+        return itemRepository.findById(id);
+    }
+
+    @GetMapping(path="/BidOnOneitem")
+    public @ResponseBody String bidOnItem(@RequestParam String username, @RequestParam double bidAmount,
+                                                      @RequestParam String itemId) {
+
+        List<User> oldUser = userRepository.findByusername(username);
+        List<Item> oldItem = itemRepository.findById(itemId);
+        String bidApprovedMessage = "bid not approved";
+
+        if(bidAmount > oldItem.get(0).getBidAmount()){
+
+            Item item = new Item.Builder()
+                    .id(oldItem.get(0).getid())
+                    .bidOwnerName(oldItem.get(0).getBidOwnerName())
+                    .currentBidOwner(oldUser.get(0))
+                    .bidAmount(bidAmount)
+                    .poster(oldUser.get(0))
+                    .username(oldUser.get(0).getUsername())
+                    .itemValue(oldItem.get(0).getItemValue())
+                    .build();
+
+            itemRepository.save(item);
+            bidApprovedMessage = "bid for R" + bidAmount+" has been approved";
+        }
+        return bidApprovedMessage;
+    }
+
+    @GetMapping(path="/deleteItem")
+    public @ResponseBody String deleteItem(@RequestParam String itemID) {
+        //return new Gson().toJson(itemRepository);
+        itemRepository.delete(itemRepository.findById(itemID));
+        return "item "+itemID+" deleted";
+    }
+
+    @GetMapping(path="/getcomments")
+    public @ResponseBody Iterable<Item> getComments(@RequestParam String OP) {
         //return new Gson().toJson(itemRepository);
         return itemRepository.findItemsByItemName(OP);
     }
+
+
 
 }

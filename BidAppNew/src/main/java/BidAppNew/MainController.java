@@ -28,7 +28,7 @@ public class MainController {
 
     @GetMapping(path="/add") // Map ONLY GET Requests
     public @ResponseBody
-    String addNewUser (@RequestParam String userName, @RequestParam String firstName, @RequestParam String lastname,
+    String addNewUser (@RequestParam String userID, @RequestParam String userName, @RequestParam String firstName, @RequestParam String lastname,
                        @RequestParam String password, @RequestParam int reportCounter, @RequestParam String userType) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
@@ -37,9 +37,9 @@ public class MainController {
         //countryService.save(country);
         //return new Gson().toJson(country);
 
-        User user = UserFactory.getUser(userName, firstName, lastname, password, reportCounter, userType);
-        User user2 = UserFactory.getUser("Username1", "Jean", "Paul", "1234",
-                4, "admin");
+        User user = UserFactory.getUser(userID, userName, firstName, lastname, password, reportCounter, userType);
+//        User user2 = UserFactory.getUser("Username1", "Jean", "Paul", "1234",
+//                4, "admin");
 
 //        localhost:8080/demo/add?userName=John&firstName=John1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
 //        localhost:8080/demo/add?userName=Abraham&firstName=Abraham1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1

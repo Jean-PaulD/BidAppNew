@@ -17,6 +17,7 @@ public class Item implements Serializable {
     private String itemName;
     private double itemValue;
     private double bidAmount;
+    private String bidOwnerName;
 
     @OneToMany
     private List<CommentBid> comment;
@@ -26,6 +27,10 @@ public class Item implements Serializable {
     @ManyToOne
     private User poster;
 
+    public String getBidOwnerName() {
+        return bidOwnerName;
+    }
+
     public double
     getBidAmount() {
         return bidAmount;
@@ -33,6 +38,21 @@ public class Item implements Serializable {
 
     public User getUser() {
         return poster;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id='" + id + '\'' +
+                ", username='" + poster.getUsername() + '\'' +
+                ", description='" + description + '\'' +
+                ", item Name='" + itemName + '\'' +
+                ", item Value=" + itemValue +
+                ", bid Amount=" + bidAmount +
+                ", comment=" + comment +
+                ", Highest Bidder=" + currentBidOwner.getUsername() +
+                "," +
+                '}';
     }
 
     private Item(){}
@@ -47,6 +67,7 @@ public class Item implements Serializable {
         this.comment = builder.comment;
         this.poster = builder.poster;
         this.bidAmount = builder.bidAmount;
+        this.bidOwnerName = builder.bidOwnerName;
 
     }
 
@@ -62,6 +83,12 @@ public class Item implements Serializable {
         private List<CommentBid> comment;
         private User poster;
         private double bidAmount;
+        private String bidOwnerName;
+
+        public Builder bidOwnerName(String value){
+            this.bidOwnerName = value;
+            return this;
+        }
 
         public Builder bidAmount(double value){
             this.bidAmount = value;

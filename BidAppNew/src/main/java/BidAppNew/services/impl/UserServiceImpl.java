@@ -24,6 +24,16 @@ public class UserServiceImpl implements UserService {
         userRepository.findAll().forEach(users::add);
         return users;
     }
+//
+//    User user = new User.Builder()
+//            .id(oldItem.get(0).getid())
+//            .firstname(oldUser.get(0).getFirstname())
+//            .lastName(oldUser.get(0).getLastName())
+//            .password(oldUser.get(0).getPassword())
+//            .userType(oldUser.get(0).getUserType())
+//            .reportCounter(oldUser.get(0).getReportCounter())
+//            .username(oldUser.get(0).getUsername())
+//            .build();
 
     @Override
     public User save(User entity) {

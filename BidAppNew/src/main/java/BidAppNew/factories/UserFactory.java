@@ -7,12 +7,12 @@ public class UserFactory {
 
 
 
-    public static User getUser(String userName, String firstName, String lastname,
+    public static User getUser(String id, String userName, String firstName, String lastname,
                                String password, int reportCounter, String userType) {
 
 
         User user = new User.Builder()
-                .id(KeyGenerator.getEntityId())
+                .id(id)
                 .username(userName)
                 .firstname(firstName)
                 .lastName(lastname)
