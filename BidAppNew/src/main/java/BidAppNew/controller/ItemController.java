@@ -7,6 +7,8 @@ import BidAppNew.factories.UserFactory;
 import BidAppNew.repositories.CommentBidRepository;
 import BidAppNew.repositories.ItemRepository;
 import BidAppNew.repositories.UserRepository;
+import BidAppNew.services.ItemService;
+import BidAppNew.services.impl.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +29,8 @@ public class ItemController {
     private ItemRepository itemRepository;
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private CommentBidRepository commentBidRepository;
+
+    ItemServiceImpl itemService = new ItemServiceImpl();
 
     @GetMapping(path="/addItem") // Map ONLY GET Requests
     public @ResponseBody
@@ -60,6 +62,11 @@ public class ItemController {
                 .build();
 
         itemRepository.save(item);
+
+
+
+       // itemService.addSingleItem(userName, higherBidder,  itemID, description,   itemName, itemValue,   bidAmount);
+
         return "item saved";
     }
 
@@ -68,7 +75,6 @@ public class ItemController {
     @GetMapping(path="/allItemDetails")
     public @ResponseBody List<String> getAllItemDetails() {
 
-        List<Item> itemDetails = new ArrayList<>();
 
         List<Item> itemList = new ArrayList<>();
 
@@ -78,16 +84,6 @@ public class ItemController {
 
 
         for(int i = itemList.size()-1; i >= 0; i--){
-//            Item tempItem = new Item.Builder()
-//                    .id(itemList.get(i).getid())
-//                    .username(itemList.get(i).getUser().getUsername())
-//                    .itemName(itemList.get(i).getItemName())
-//                    .description(itemList.get(i).getDescription())
-//                    .itemValue(itemList.get(i).getItemValue())
-//                    .bidAmount(itemList.get(i).getBidAmount())
-//                    .bidOwnerName(itemList.get(i).getCurrentBidOwner().getUsername())
-//                    .comment(itemList.get(i).getComment())
-//                    .build();
 
                     String tempHolder = "---------- Item{" +
                     "id='" + itemList.get(i).getid() + '\'' +
@@ -96,7 +92,7 @@ public class ItemController {
                     ", item Name='" + itemList.get(i).getItemName() + '\'' +
                     ", item Value=" + itemList.get(i).getItemValue() +
                     ", bid Amount=" + itemList.get(i).getBidAmount() +
-                    ", comment=" + itemList.get(i).getComment() +
+//                    ", comment=" + itemList.get(i).getComment() +
                     ", Highest Bidder=" + itemList.get(i).getCurrentBidOwner().getUsername() +
                     " " +
                     '}';
@@ -105,6 +101,7 @@ public class ItemController {
                     stringListOfItems.add(tempHolder);
         }
 
+       // return itemService.getAllItemDetails();
         return stringListOfItems;
     }
 
@@ -112,13 +109,14 @@ public class ItemController {
     @GetMapping(path="/allItems")
     public @ResponseBody Iterable<Item> getAllItems() {
         return itemRepository.findAll();
+        //return itemService.getAllItems();
     }
 
     //finditem by name
     @GetMapping(path="/getSingleItem")
-    public @ResponseBody Iterable<Item> getOneItem(@RequestParam String id) {
-        //return new Gson().toJson(itemRepository);
-
+    public @ResponseBody String getOneItem(@RequestParam String id) {
+//        //return new Gson().toJson(itemRepository);
+//
         List<Item> item = new ArrayList<>();
 
         itemRepository.findById(id).forEach(item::add);
@@ -135,7 +133,8 @@ public class ItemController {
                 " " +
                 '}';
 
-        return itemRepository.findById(id);
+        //return itemRepository.findById(id);
+        return itemService.getSingleItem(id);
     }
 
     @GetMapping(path="/BidOnOneitem")
@@ -162,6 +161,8 @@ public class ItemController {
             bidApprovedMessage = "bid for R" + bidAmount+" has been approved";
         }
         return bidApprovedMessage;
+
+        //return itemService.bidonItem( username,   bidAmount, itemId);
     }
 
     @GetMapping(path="/deleteItem")
@@ -169,12 +170,7 @@ public class ItemController {
         //return new Gson().toJson(itemRepository);
         itemRepository.delete(itemRepository.findById(itemID));
         return "item "+itemID+" deleted";
-    }
-
-    @GetMapping(path="/getcomments")
-    public @ResponseBody Iterable<Item> getComments(@RequestParam String OP) {
-        //return new Gson().toJson(itemRepository);
-        return itemRepository.findItemsByItemName(OP);
+        //return itemService.deleteItem(itemID);
     }
 
 

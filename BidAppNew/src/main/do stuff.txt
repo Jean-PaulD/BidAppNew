@@ -1,0 +1,45 @@
+//additems
+localhost:8080/demo/addItem?userName=Abraham&higherBidder=Leon&itemID=item1&description=This_is_a_toilet&itemName=Toilet&itemValue=3000&bidAmount=3500
+
+localhost:8080/demo/addItem?userName=Lorenzo&higherBidder=Justin&itemID=item2&description=This_is_a_Slave&itemName=Slave&itemValue=100&bidAmount=102
+
+localhost:8080/demo/addItem?userName=John&higherBidder=banna&itemID=item3&description=This_is_a_book&itemName=book&itemValue=199&bidAmount=200
+
+localhost:8080/demo/addItem?userName=Justin&higherBidder=Brian&itemID=item4&description=This_is_a_pen&itemName=pencil&itemValue=15&bidAmount=16
+
+//bid on item
+http://localhost:8080/demo/BidOnOneitem?username=Abraham&bidAmount=800&itemId=item3
+
+//add user
+localhost:8080/demo/add?userID=008&userName=Brian&firstName=Brian1&lastname=Paul4&password=1234&reportCounter=3&userType=admin4
+
+	localhost:8080/demo/add?userID=001&userName=John&firstName=John1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+        localhost:8080/demo/add?userID=002&userName=Abraham&firstName=Abraham1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+        localhost:8080/demo/add?userID=003&userName=lincoln&firstName=lincoln1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+        localhost:8080/demo/add?userID=004&userName=Leon&firstName=Leon1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+        localhost:8080/demo/add?userID=005&userName=Justin&firstName=Justin1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+        localhost:8080/demo/add?userID=006&userName=Lorenzo&firstName=Lorenzo1&lastname=Paul2&password=1234&reportCounter=3&userType=admin2
+        localhost:8080/demo/add?userID=007&userName=banna&firstName=banna1&lastname=Paul3&password=1234&reportCounter=3&userType=admin3
+        localhost:8080/demo/add?userID=008&userName=Brian&firstName=Brian1&lastname=Paul4&password=1234&reportCounter=3&userType=admin4
+
+
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('001','John','Paul','234',3,'admin','John');
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('002','Abraham','Paul','234',3,'admin','Abraham');
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('003','lincoln','Paul','234',3,'admin','lincoln');
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('004','Leon','Paul','234',3,'admin','Leon');
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('005','Justin','Paul','234',3,'admin','Justin');
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('006','Lorenzo','Paul2','234',3,'admin2','Lorenzo');
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('007','banna','Paul3','234',3,'admin3','banna');
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('008','Brian','Paul4','234',3,'admin4','Brian');
+insert into user (id, firstname, last_name, password, report_counter, user_type, username)
+values ('009','ben','jamin','234',2,'admin','ben69');
+get item
+
