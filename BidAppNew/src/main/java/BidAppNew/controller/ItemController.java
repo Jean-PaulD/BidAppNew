@@ -30,7 +30,9 @@ public class ItemController {
     @Autowired
     private UserRepository userRepository;
 
-    ItemServiceImpl itemService = new ItemServiceImpl();
+    private ItemServiceImpl itemService;
+
+    //ItemServiceImpl itemService = new ItemServiceImpl();
 
     @GetMapping(path="/addItem") // Map ONLY GET Requests
     public @ResponseBody
@@ -53,6 +55,8 @@ public class ItemController {
 
         Item item = new Item.Builder()
                 .id(itemID)
+                .bidOwnerName(highBid1.getUsername())
+                .username(poster1.getUsername())
                 .itemName(itemName)
                 .currentBidOwner(highBid1)
                 .itemValue(itemValue)
@@ -116,6 +120,7 @@ public class ItemController {
     @GetMapping(path="/getSingleItem")
     public @ResponseBody String getOneItem(@RequestParam String id) {
 //        //return new Gson().toJson(itemRepository);
+        //return itemRepository.findById(id);
 //
         List<Item> item = new ArrayList<>();
 
@@ -132,9 +137,9 @@ public class ItemController {
                 ", Highest Bidder=" + item.get(0).getCurrentBidOwner().getUsername() +
                 " " +
                 '}';
-
+        return  tempHolder;
         //return itemRepository.findById(id);
-        return itemService.getSingleItem(id);
+        //return itemService.getSingleItem(id);
     }
 
     @GetMapping(path="/BidOnOneitem")
@@ -149,12 +154,14 @@ public class ItemController {
 
             Item item = new Item.Builder()
                     .id(oldItem.get(0).getid())
-                    .bidOwnerName(oldItem.get(0).getBidOwnerName())
+                    .bidOwnerName(oldUser.get(0).getUsername())
                     .currentBidOwner(oldUser.get(0))
                     .bidAmount(bidAmount)
                     .poster(oldUser.get(0))
-                    .username(oldUser.get(0).getUsername())
+                    .username(oldItem.get(0).getUsername())
                     .itemValue(oldItem.get(0).getItemValue())
+                    .description(oldItem.get(0).getDescription())
+                    .itemName(oldItem.get(0).getItemName())
                     .build();
 
             itemRepository.save(item);
@@ -167,10 +174,7 @@ public class ItemController {
 
     @GetMapping(path="/deleteItem")
     public @ResponseBody String deleteItem(@RequestParam String itemID) {
-        //return new Gson().toJson(itemRepository);
-        itemRepository.delete(itemRepository.findById(itemID));
-        return "item "+itemID+" deleted";
-        //return itemService.deleteItem(itemID);
+        return itemService.deleteItem(itemID);
     }
 
 

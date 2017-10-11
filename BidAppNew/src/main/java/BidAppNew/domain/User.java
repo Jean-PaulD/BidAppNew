@@ -1,5 +1,7 @@
 package BidAppNew.domain;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,15 +12,32 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    //@GeneratedValue(strategy= GenerationType.AUTO)
-    private String id;
-    private String username;
-    private String firstname;
-    private String lastName;
-    private String password;
-    private String userType;
-    private int reportCounter;
+    @Expose
+    @GeneratedValue
+    private Long id;
 
+    @Expose
+    private String username;
+    @Expose
+    private String firstname;
+    @Expose
+    private String lastName;
+    @Expose
+    private String password;
+    @Expose
+    private String userType;
+    @Expose
+    private int reportCounter;
+    @Expose
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 //    private Item item;
 //    private CommentBid commentBid;
 //    private Bid bid;
@@ -28,13 +47,14 @@ public class User implements Serializable {
 
     public static class Builder{
 
-        private String id;
+        private Long id;
         private String username;
         private String firstname;
         private String lastName;
         private String password;
         private String userType;
         private int reportCounter;
+        private String email;
 
 //        private Item item;
 //        private CommentBid commentBid;
@@ -42,7 +62,12 @@ public class User implements Serializable {
 //        private UserRating userRating;
 //        private ReportUser reportUser;
 
-        public Builder id(String value){
+        public Builder email(String value){
+            this.email = value;
+            return this;
+        }
+
+        public Builder id(Long value){
             this.id = value;
             return this;
         }
@@ -112,6 +137,7 @@ public class User implements Serializable {
         this.password = builder.password;
         this.userType = builder.userType;
         this.reportCounter = builder.reportCounter;
+        this.email = builder.email;
 //        this.item = builder.item;
 //        this.commentBid = builder.commentBid;
 //        this.bid = builder.bid;
@@ -120,7 +146,7 @@ public class User implements Serializable {
     }
 
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

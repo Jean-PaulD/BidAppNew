@@ -6,6 +6,7 @@ import BidAppNew.repositories.ItemRepository;
 import BidAppNew.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,39 @@ public class ItemServiceImpl {
     @Autowired
     UserRepository userRepository;
 
+    public String addItem(String userName,  String higherBidder,
+                           String itemID,
+                           String description,  String itemName,
+                           double itemValue,  double bidAmount){
+        List<User> poster = userRepository.findByusername(userName);
+        List<User> highBid = userRepository.findByusername(higherBidder);
+//        List<CommentBid> comments = commentBidRepository.findByItem(
+//                itemRepository.findById(itemID).get(0)
+//        );
+
+        User poster1 = poster.get(0);
+        User highBid1 = highBid.get(0);
+
+        Item item = new Item.Builder()
+                .id(itemID)
+                .bidOwnerName(highBid1.getUsername())
+                .username(poster1.getUsername())
+                .itemName(itemName)
+                .currentBidOwner(highBid1)
+                .itemValue(itemValue)
+                .bidAmount(bidAmount)
+                .description(description)
+                .poster(poster1)
+                .build();
+
+        itemRepository.save(item);
+
+        return "item added";
+    }
+
     public String deleteItem(String itemID){
         itemRepository.delete(itemRepository.findById(itemID));
-        return "item deleted";
+        return "item "+itemID+" deleted";
     }
 
     public Iterable<Item> getAllItems(){

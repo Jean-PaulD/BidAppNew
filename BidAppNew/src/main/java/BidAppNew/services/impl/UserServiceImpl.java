@@ -33,8 +33,7 @@ public class UserServiceImpl implements UserService {
 //            .userType(oldUser.get(0).getUserType())
 //            .reportCounter(oldUser.get(0).getReportCounter())
 //            .username(oldUser.get(0).getUsername())
-//            .build();
-
+//
     @Override
     public User save(User entity) {
         return userRepository.save(entity);

@@ -11,6 +11,10 @@ localhost:8080/demo/addItem?userName=Justin&higherBidder=Brian&itemID=item4&desc
 http://localhost:8080/demo/BidOnOneitem?username=Abraham&bidAmount=800&itemId=item3
 
 //add user
+
+localhost:8080/demo/createNewUser?userName=John&firstName=John1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
+localhost:8080/demo/add?userName=sdf&firstName=sdf&lastname=sdf&password=sdf&email=sdf&userType=Normal&reportCounter=0
+
 localhost:8080/demo/add?userID=008&userName=Brian&firstName=Brian1&lastname=Paul4&password=1234&reportCounter=3&userType=admin4
 
 	localhost:8080/demo/add?userID=001&userName=John&firstName=John1&lastname=Paul1&password=1234&reportCounter=3&userType=admin1
