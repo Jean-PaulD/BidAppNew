@@ -1,9 +1,8 @@
 package BidAppNew.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import com.google.gson.annotations.Expose;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,20 +10,31 @@ import java.util.List;
 public class Item implements Serializable {
 
     @Id
-    private String id;
+    @Expose
+    @GeneratedValue
+    private Long id;
+    @Expose
     private String username;
+    @Expose
     private String description;
+    @Expose
     private String itemName;
+    @Expose
     private double itemValue;
+    @Expose
     private double bidAmount;
+    @Expose
     private String bidOwnerName;
 
     @OneToMany
+    @Expose
     private List<CommentBid> comment;
     @ManyToOne
+    @Expose
     private User currentBidOwner;
 
     @ManyToOne
+    @Expose
     private User poster;
 
     public String getBidOwnerName() {
@@ -74,7 +84,7 @@ public class Item implements Serializable {
     public static class Builder {
 
 
-        private String id;
+        private Long id;
         private String username;
         private String description;
         private String itemName;
@@ -100,7 +110,7 @@ public class Item implements Serializable {
             return this;
         }
 
-        public Builder id(String value){
+        public Builder id(Long value){
             this.id = value;
             return this;
         }
@@ -143,7 +153,7 @@ public class Item implements Serializable {
 
 
 
-    public String getid() {
+    public Long getid() {
         return id;
     }
 

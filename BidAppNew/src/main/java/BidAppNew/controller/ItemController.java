@@ -11,10 +11,7 @@ import BidAppNew.services.ItemService;
 import BidAppNew.services.impl.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,10 +31,11 @@ public class ItemController {
 
     //ItemServiceImpl itemService = new ItemServiceImpl();
 
+    @CrossOrigin
     @GetMapping(path="/addItem") // Map ONLY GET Requests
     public @ResponseBody
     String addNewItem (@RequestParam String userName, @RequestParam  String higherBidder,
-                       @RequestParam String itemID,
+                      // @RequestParam String itemID,
                        @RequestParam String description, @RequestParam String itemName,
                        @RequestParam double itemValue, @RequestParam double bidAmount){
 
@@ -54,7 +52,6 @@ public class ItemController {
         User highBid1 = highBid.get(0);
 
         Item item = new Item.Builder()
-                .id(itemID)
                 .bidOwnerName(highBid1.getUsername())
                 .username(poster1.getUsername())
                 .itemName(itemName)
@@ -76,6 +73,7 @@ public class ItemController {
 
     //check all comments under a certain item
     //get all items and their details
+    @CrossOrigin
     @GetMapping(path="/allItemDetails")
     public @ResponseBody List<String> getAllItemDetails() {
 
@@ -109,7 +107,7 @@ public class ItemController {
         return stringListOfItems;
     }
 
-
+    @CrossOrigin
     @GetMapping(path="/allItems")
     public @ResponseBody Iterable<Item> getAllItems() {
         return itemRepository.findAll();
@@ -117,8 +115,9 @@ public class ItemController {
     }
 
     //finditem by name
+    /*
     @GetMapping(path="/getSingleItem")
-    public @ResponseBody String getOneItem(@RequestParam String id) {
+    public @ResponseBody String getOneItem(@RequestParam Long id) {
 //        //return new Gson().toJson(itemRepository);
         //return itemRepository.findById(id);
 //
@@ -141,13 +140,19 @@ public class ItemController {
         //return itemRepository.findById(id);
         //return itemService.getSingleItem(id);
     }
-
+*/
+    @CrossOrigin
     @GetMapping(path="/BidOnOneitem")
-    public @ResponseBody String bidOnItem(@RequestParam String username, @RequestParam double bidAmount,
-                                                      @RequestParam String itemId) {
+    public @ResponseBody Iterable<Item> bidOnItem(@RequestParam Long newBidUserID, @RequestParam double bidAmount,
+                                                      @RequestParam Long itemId) {
 
-        List<User> oldUser = userRepository.findByusername(username);
+        //List<User> oldUser = userRepository.findByusername(username);
+        List<User> oldUser = userRepository.findById(newBidUserID);
         List<Item> oldItem = itemRepository.findById(itemId);
+
+
+
+
         String bidApprovedMessage = "bid not approved";
 
         if(bidAmount > oldItem.get(0).getBidAmount()){
@@ -167,14 +172,17 @@ public class ItemController {
             itemRepository.save(item);
             bidApprovedMessage = "bid for R" + bidAmount+" has been approved";
         }
-        return bidApprovedMessage;
+        return itemRepository.findById(itemId);
 
         //return itemService.bidonItem( username,   bidAmount, itemId);
     }
 
+    @CrossOrigin
     @GetMapping(path="/deleteItem")
-    public @ResponseBody String deleteItem(@RequestParam String itemID) {
-        return itemService.deleteItem(itemID);
+    public @ResponseBody Iterable<Item> deleteItem(@RequestParam Long itemID) {
+
+        itemRepository.delete(itemRepository.findById(itemID));
+        return itemRepository.findById(itemID);
     }
 
 

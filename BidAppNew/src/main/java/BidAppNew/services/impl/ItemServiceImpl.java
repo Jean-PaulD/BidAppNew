@@ -20,37 +20,35 @@ public class ItemServiceImpl {
     @Autowired
     UserRepository userRepository;
 
-    public String addItem(String userName,  String higherBidder,
-                           String itemID,
+    public Iterable<Item> addItem(Long userId,  //String higherBidder,
+                           //String itemID,
                            String description,  String itemName,
-                           double itemValue,  double bidAmount){
-        List<User> poster = userRepository.findByusername(userName);
-        List<User> highBid = userRepository.findByusername(higherBidder);
-//        List<CommentBid> comments = commentBidRepository.findByItem(
-//                itemRepository.findById(itemID).get(0)
-//        );
+                           double itemValue //,  double bidAmount
+                            ){
+
+        List<User> poster = userRepository.findById (userId);
 
         User poster1 = poster.get(0);
-        User highBid1 = highBid.get(0);
+
 
         Item item = new Item.Builder()
-                .id(itemID)
-                .bidOwnerName(highBid1.getUsername())
+                //.id(itemID)
+                //.bidOwnerName(highBid1.getUsername())
                 .username(poster1.getUsername())
                 .itemName(itemName)
-                .currentBidOwner(highBid1)
+                //.currentBidOwner(highBid1)
                 .itemValue(itemValue)
-                .bidAmount(bidAmount)
+
                 .description(description)
                 .poster(poster1)
                 .build();
 
         itemRepository.save(item);
 
-        return "item added";
+        return itemRepository.findById(item.getid());
     }
 
-    public String deleteItem(String itemID){
+    public String deleteItem(Long itemID){
         itemRepository.delete(itemRepository.findById(itemID));
         return "item "+itemID+" deleted";
     }
@@ -60,7 +58,7 @@ public class ItemServiceImpl {
     }
 
     public void addSingleItem( String userName,  String higherBidder,
-                               String itemID,
+                               //String itemID,
                                String description,  String itemName,
                                double itemValue,  double bidAmount){
         List<User> poster = userRepository.findByusername(userName);
@@ -73,7 +71,7 @@ public class ItemServiceImpl {
         User highBid1 = highBid.get(0);
 
         Item item = new Item.Builder()
-                .id(itemID)
+                //.id(itemID)
                 .itemName(itemName)
                 .currentBidOwner(highBid1)
                 .itemValue(itemValue)
@@ -116,9 +114,11 @@ public class ItemServiceImpl {
         return stringListOfItems;
     }
 
-    public String getSingleItem(String id){
-        List<Item> item = new ArrayList<>();
+    public Iterable<Item> getSingleItem(Long id){
+        //List<Item> item = new ArrayList<>();
 
+        return itemRepository.findById(id);
+/*
         itemRepository.findById(id).forEach(item::add);
 
         String tempHolder = "---------- Item{" +
@@ -132,11 +132,11 @@ public class ItemServiceImpl {
                 ", Highest Bidder=" + item.get(0).getCurrentBidOwner().getUsername() +
                 " " +
                 '}';
-        return tempHolder;
+        return tempHolder;*/
     }
 
     public String bidonItem( String username,  double bidAmount,
-                             String itemId){
+                             Long itemId){
 
         List<User> oldUser = userRepository.findByusername(username);
         List<Item> oldItem = itemRepository.findById(itemId);

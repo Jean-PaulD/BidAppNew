@@ -86,6 +86,7 @@ public class MainController {
     }
     */
 
+    @CrossOrigin
     @GetMapping(path="/allUserNames")
     public @ResponseBody Iterable<String> getAllUserNames() {
         // This returns a JSON or XML with the users
@@ -115,6 +116,7 @@ public class MainController {
         //return userServiceImpl.findbyUserName("username99");
     }
 
+    @CrossOrigin
     @GetMapping(path="/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
@@ -130,6 +132,7 @@ public class MainController {
 //        return
 //    }
 
+    @CrossOrigin
     @GetMapping(path="/deleteUser")
     public @ResponseBody String deleteUser(@RequestParam String userName) {
         //return new Gson().toJson(itemRepository);
@@ -146,7 +149,13 @@ public class MainController {
         List<User> findUserName = userRepository.findByusername(userName);
         List<User> findUserName2;
 
-        if(findUserName.get(0).getPassword() == password ){
+
+        String tempPassowrd = "";
+        if (findUserName.size() != 0){
+            tempPassowrd = findUserName.get(0).getPassword()+"";
+        }
+
+        if(tempPassowrd.equals(password) ){
             findUserName2 = userRepository.findByusername(userName);
         }
         else {
@@ -157,7 +166,7 @@ public class MainController {
 
     }
 
-
+    @CrossOrigin
     @GetMapping(path="/username")
     public @ResponseBody Iterable<User> getUserName(String id) {
 

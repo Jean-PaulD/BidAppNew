@@ -1,12 +1,10 @@
 package BidAppNew.controller;
 
+import BidAppNew.domain.Item;
 import BidAppNew.services.impl.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -18,16 +16,23 @@ public class NewItemController {
     @Autowired
     ItemServiceImpl itemService;
 
+    @CrossOrigin
     @GetMapping(path="/addItemNew") // Map ONLY GET Requests
     public @ResponseBody
-    String addNewItem ( @RequestParam String userName, @RequestParam  String higherBidder,
-                       @RequestParam String itemID,
+    Iterable<Item> addNewItem ( @RequestParam Long userID,
+                       //@RequestParam String itemID,
                        @RequestParam String description, @RequestParam String itemName,
-                       @RequestParam double itemValue, @RequestParam double bidAmount){
+                       @RequestParam double itemValue){
 
+       return itemService.addItem(userID, description, itemName, itemValue);
 
+    }
 
-        return itemService.addItem(userName,higherBidder, itemID, description, itemName, itemValue, bidAmount);
+    @CrossOrigin
+    @GetMapping(path="/getOneItem") // Map ONLY GET Requests
+    public @ResponseBody
+    Iterable<Item> getOneItem (@RequestParam Long itemID){
+        return itemService.getSingleItem(itemID);
     }
 
 
