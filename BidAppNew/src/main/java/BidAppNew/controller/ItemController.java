@@ -120,7 +120,7 @@ public class ItemController {
     public @ResponseBody String getOneItem(@RequestParam Long id) {
 //        //return new Gson().toJson(itemRepository);
         //return itemRepository.findById(id);
-//
+//.
         List<Item> item = new ArrayList<>();
 
         itemRepository.findById(id).forEach(item::add);
